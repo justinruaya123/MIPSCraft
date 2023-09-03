@@ -164,7 +164,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                }
                dumpSegments();
             }
-            System.exit(Globals.exitCode);
+            //System.exit(Globals.exitCode);
          }
       }   		
    	
@@ -274,6 +274,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             displayHelp();
             return false;					
          } 
+         // TODO Remove this
+         filenameList.add("Samples/fibonacci.asm");
+
          for (int i=0; i<args.length; i++) {
             // We have seen "pa" switch, so all remaining args are program args
          	// that will become "argc" and "argv" for the MIPS program.
