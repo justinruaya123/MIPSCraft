@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.bukkit.command.CommandSender;
+
 import mars.mips.dump.DumpFormat;
 import mars.mips.dump.DumpFormatLoader;
 import mars.mips.hardware.AccessNotice;
@@ -682,7 +684,7 @@ public class MarsLaunch {
    //////////////////////////////////////////////////////////////////////
    // Displays requested memory range or ranges
 
-   private void displayMemoryPostMortem() {
+   public void displayMemoryPostMortem(CommandSender sender) {
       int value;
       // Display requested memory range contents
       Iterator memIter = memoryDisplayList.iterator();
@@ -698,9 +700,9 @@ public class MarsLaunch {
             if (addr < 0 && addressEnd > 0)
                break; // happens only if addressEnd is 0x7ffffffc
             if (valuesDisplayed % memoryWordsPerLine == 0) {
-               out.print((valuesDisplayed > 0) ? "\n" : "");
+               sender.sendMessage((valuesDisplayed > 0) ? "\n" : "");
                if (verbose) {
-                  out.print("Mem[" + Binary.intToHexString(addr) + "]\t");
+                  sender.sendMessage("Mem[" + Binary.intToHexString(addr) + "]\t");
                }
             }
             try {
@@ -711,13 +713,13 @@ public class MarsLaunch {
                } else {
                   value = Globals.memory.getWord(addr);
                }
-               out.print(formatIntForDisplay(value) + "\t");
+               sender.sendMessage(formatIntForDisplay(value) + "\t");
             } catch (AddressErrorException aee) {
-               out.print("Invalid address: " + addr + "\t");
+               sender.sendMessage("Invalid address: " + addr + "\t");
             }
             valuesDisplayed++;
          }
-         out.println();
+         sender.sendMessage("");
       }
    }
 
